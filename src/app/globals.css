@@ -1,26 +1,211 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: #141414;
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.netflix-logo {
+  font-size: 8rem;
+  font-weight: bold;
+  color: #e50914;
+  animation: flicker 3s ease-in-out forwards;
+}
+
+@keyframes flicker {
+  0% {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(1.2);
+  }
+  50% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Perfiles --- */
+.perfiles-container {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: 3rem;
+}
+
+.perfil-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.perfil-avatar {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.perfil-nombre {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.perfil-sub {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-style: italic;
+  color: #3b82f6; /* azul tailwind */
+}
+
+/* --- Galería Mejorada --- */
+.gallery-main {
+  min-height: 100vh;
+  background: #141414;
+  color: #fff;
+  padding-bottom: 40px;
+}
+
+.gallery-title {
+  text-align: center;
+  font-size: 3.2rem;
+  font-weight: 900;
+  margin-top: 2.2rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 3px;
+  font-family: 'Montserrat', 'Arial', sans-serif;
+  color: #fff;
+  text-shadow: 0 4px 24px #fff, 0 0 12px #e50914a0;
+  filter: brightness(1.7);
+}
+
+.gallery-sections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* menos espacio entre secciones */
+}
+
+.gallery-section {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.gallery-section-title.gradient-text {
+  font-size: 2.1rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.3rem 0;
+  text-align: center;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Poppins', 'Arial', sans-serif;
+  background: linear-gradient(90deg, #ffb347, #e50914, #ffb347);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradientTextMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes gradientTextMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.gallery-cards-row {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.gallery-category-card {
+  background: #222;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  overflow: hidden;
+  width: 400px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-category-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 24px #e50914a0;
+}
+
+.gallery-banner-container {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  overflow: hidden;
+  border-radius: 18px 18px 0 0;
+}
+
+.gallery-banner {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  filter: blur(6px) brightness(0.7);
+  transition: filter 0.3s;
+}
+
+.gallery-category-card:hover .gallery-banner {
+  filter: blur(2px) brightness(0.85);
+}
+
+.gallery-banner-text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 12px #000, 0 0 8px #e50914;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+
+/* Gradiente animado para las secciones */
+.gallery-section-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 24px;
+  pointer-events: none;
+  background: linear-gradient(120deg, #e50914 0%, #222 100%);
+  opacity: 0.18;
+  animation: gradientMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
