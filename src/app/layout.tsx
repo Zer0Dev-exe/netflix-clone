@@ -2,8 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Netflix Clone",
-  description: "Clon de Netflix creado con Next.js + React",
+  title: "Blue & Beta 💍",
+  description: "Oparitxo 5 hilabetegatik",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

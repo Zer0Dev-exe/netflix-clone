@@ -5,22 +5,29 @@ const HEARTS = 7;
 
 export default function NetflixIntro({ onFinish }: { onFinish: () => void }) {
   const [visible, setVisible] = useState(true);
-  const [heartPositions] = useState(
-    Array.from({ length: HEARTS }, () => ({
-      left: `${Math.random() * 90 + 5}vw`,
-      size: `${Math.random() * 16 + 24}px`,
-    }))
-  );
+  const [heartPositions, setHeartPositions] = useState<
+    { left: string; size: string }[]
+  >([]);
 
   useEffect(() => {
+    // 🩷 Generar posiciones aleatorias solo en el cliente
+    const positions = Array.from({ length: HEARTS }, () => ({
+      left: `${Math.random() * 90 + 5}vw`,
+      size: `${Math.random() * 16 + 24}px`,
+    }));
+    setHeartPositions(positions);
+
+    // ⏳ Temporizador para finalizar la intro
     const timer = setTimeout(() => {
       setVisible(false);
       if (onFinish) onFinish();
     }, 3000);
+
     return () => clearTimeout(timer);
   }, [onFinish]);
 
-  if (!visible) return null;
+  // Evita renderizar nada en SSR o antes de generar los corazones
+  if (!visible || heartPositions.length === 0) return null;
 
   return (
     <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
@@ -39,6 +46,7 @@ export default function NetflixIntro({ onFinish }: { onFinish: () => void }) {
           </span>
         ))}
       </div>
+
       <style jsx>{`
         .heart {
           position: absolute;
@@ -48,6 +56,7 @@ export default function NetflixIntro({ onFinish }: { onFinish: () => void }) {
           animation: floatHeart 3s linear infinite;
           will-change: transform, opacity;
         }
+
         .heart-0 { animation-delay: 0s; }
         .heart-1 { animation-delay: 0.5s; }
         .heart-2 { animation-delay: 1s; }

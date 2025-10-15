@@ -1,27 +1,42 @@
-"use client";
+// app/galeria/page.tsx
+import fs from "fs";
+import path from "path";
 import Image from "next/image";
 import Link from "next/link";
 
-const categorias = [
-  { nombre: "1 mes", banner: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
-  { nombre: "2 meses", banner: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" },
-  { nombre: "3 meses", banner: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=800&q=80" },
-  { nombre: "4 meses", banner: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80" },
-];
+const meses = ["1 hilabete", "2 hilabete", "3 hilabete", "4 hilabete", "5 hilabete"];
+const destinos = ["Salou", "Madrid"];
 
-const destinos = [
-  { nombre: "Salou", banner: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" },
-  { nombre: "Madrid", banner: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=800&q=80" },
-];
+// Función para obtener la primera imagen de una carpeta
+function getFirstImage(folderName: string) {
+  const folderPath = path.join(process.cwd(), "public", "imgs", folderName);
+  try {
+    const files = fs.readdirSync(folderPath).filter((f) => f.endsWith(".webp"));
+    return files.length > 0 ? `/imgs/${folderName}/${files[0]}` : "";
+  } catch (err) {
+    console.error("No se pudo leer la carpeta:", folderName, err);
+    return "";
+  }
+}
 
 export default function HomeGallery() {
+  const categorias = meses.map((mes) => ({
+    nombre: mes,
+    banner: getFirstImage(`${mes} webp`),
+  }));
+
+  const destinosData = destinos.map((dest) => ({
+    nombre: dest,
+    banner: getFirstImage(`${dest} webp`),
+  }));
+
   return (
     <main className="gallery-main">
-      <h1 className="gallery-title">Galería</h1>
+      <h1 className="gallery-title">Dino Galeria</h1>
       <div className="gallery-sections">
         {/* SECCIÓN DE MESES */}
         <section className="gallery-section">
-          <h2 className="gallery-section-title gradient-text">Meses</h2>
+          <h2 className="gallery-section-title dinosaur-text">Hilabetiak</h2>
           <div className="gallery-cards-row">
             {categorias.map((cat) => (
               <Link
@@ -30,14 +45,20 @@ export default function HomeGallery() {
                 className="gallery-category-card"
               >
                 <div className="gallery-banner-container">
-                  <Image
-                    src={cat.banner}
-                    alt={`${cat.nombre} banner`}
-                    width={400}
-                    height={120}
-                    className="gallery-banner"
-                    unoptimized
-                  />
+                  {cat.banner ? (
+                    <Image
+                      src={cat.banner}
+                      alt={`${cat.nombre} banner`}
+                      width={400}
+                      height={120}
+                      className="gallery-banner"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="w-full h-[120px] bg-gray-800 flex items-center justify-center text-white">
+                      Sin imagen
+                    </div>
+                  )}
                   <span className="gallery-banner-text">{cat.nombre}</span>
                 </div>
               </Link>
@@ -47,23 +68,29 @@ export default function HomeGallery() {
 
         {/* SECCIÓN DE DESTINOS */}
         <section className="gallery-section">
-          <h2 className="gallery-section-title gradient-text">Destinos</h2>
+          <h2 className="gallery-section-title dinosaur-text">Helmugak</h2>
           <div className="gallery-cards-row">
-            {destinos.map((dest) => (
+            {destinosData.map((dest) => (
               <Link
                 href={`/galeria/viajes/${dest.nombre.toLowerCase()}`}
                 key={dest.nombre}
                 className="gallery-category-card"
               >
                 <div className="gallery-banner-container">
-                  <Image
-                    src={dest.banner}
-                    alt={`${dest.nombre} banner`}
-                    width={400}
-                    height={120}
-                    className="gallery-banner"
-                    unoptimized
-                  />
+                  {dest.banner ? (
+                    <Image
+                      src={dest.banner}
+                      alt={`${dest.nombre} banner`}
+                      width={400}
+                      height={120}
+                      className="gallery-banner"
+                      unoptimized
+                    />
+                  ) : (
+                    <div className="w-full h-[120px] bg-gray-800 flex items-center justify-center text-white">
+                      Sin imagen
+                    </div>
+                  )}
                   <span className="gallery-banner-text">{dest.nombre}</span>
                 </div>
               </Link>

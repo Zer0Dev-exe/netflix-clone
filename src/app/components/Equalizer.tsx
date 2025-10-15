@@ -1,12 +1,17 @@
 "use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function Equalizer() {
-  const bars = Array.from({ length: 5 });
+  const [randomDurations, setRandomDurations] = useState<number[]>([]);
+
+  useEffect(() => {
+    setRandomDurations(Array.from({ length: 5 }, () => 1 + Math.random()));
+  }, []);
 
   return (
     <div className="flex items-end justify-center gap-1 h-10">
-      {bars.map((_, i) => (
+      {randomDurations.map((duration, i) => (
         <motion.div
           key={i}
           className="w-2 bg-red-500 rounded"
@@ -14,7 +19,7 @@ export default function Equalizer() {
             height: ["20%", "100%", "40%", "80%", "30%"],
           }}
           transition={{
-            duration: 1 + Math.random(),
+            duration,
             repeat: Infinity,
             repeatType: "reverse",
           }}

@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="flex justify-between items-center bg-black text-white px-6 py-4">
       <Link href="/" className="text-2xl font-bold">
-        Netflix Clone
+        Blue & Beta
       </Link>
       <ul className="flex gap-6">
         <li>
