@@ -8,26 +8,35 @@ on:
 jobs:
   build:
     runs-on: macos-latest
+
     steps:
+      # 1️⃣ Clonar el repositorio
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # 2️⃣ Instalar Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
+      # 3️⃣ Instalar Rust
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      # 4️⃣ Instalar dependencias de npm
       - name: Install dependencies
         run: npm install
 
+      # 5️⃣ Construir la app Tauri
       - name: Build Tauri app
         run: npx tauri build
 
+      # 6️⃣ Subir artifacts (.app y .dmg)
       - name: Upload macOS build
         uses: actions/upload-artifact@v4
         with:
           name: tauri-macos-build
-          path: src-tauri/target/release/bundle/
+          path: |
+            src-tauri/target/release/bundle/macos
+            src-tauri/target/release/bundle/dmg
