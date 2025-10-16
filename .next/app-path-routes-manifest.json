@@ -1,0 +1,9 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/_not-found/page": "/_not-found",
+  "/profiles/page": "/profiles",
+  "/page": "/",
+  "/home/page": "/home",
+  "/galeria/meses/[mes]/page": "/galeria/meses/[mes]",
+  "/galeria/viajes/[destino]/page": "/galeria/viajes/[destino]"
+}

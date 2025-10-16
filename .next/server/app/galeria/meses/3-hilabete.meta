@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/galeria/layout,_N_T_/galeria/meses/layout,_N_T_/galeria/meses/[mes]/layout,_N_T_/galeria/meses/[mes]/page,_N_T_/galeria/meses/3-hilabete/"
+  }
+}

@@ -30,11 +30,15 @@ jobs:
 
       # 5️⃣ Construir la app Tauri
       - name: Build Tauri app
-        run: npx tauri build
+        run: npx tauri build --verbose
 
-      # 6️⃣ Subir artifacts (.app y .dmg)
+      # 6️⃣ Debug: listar archivos generados (opcional)
+      - name: List build output
+        run: ls -R src-tauri/target/release/bundle/
+
+      # 7️⃣ Subir artifacts (.app y .dmg)
       - name: Upload macOS build
         uses: actions/upload-artifact@v4
         with:
           name: tauri-macos-build
-          path: src-tauri/target/release/bundle/**/*
+          path: src-tauri/target/release/bundle/macos/**

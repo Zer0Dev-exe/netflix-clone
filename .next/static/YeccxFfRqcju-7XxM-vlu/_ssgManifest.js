@@ -1,0 +1,1 @@
+self.__SSG_MANIFEST=new Set(["\u002Fgaleria\u002Fmeses\u002F[mes]","\u002Fgaleria\u002Fviajes\u002F[destino]"]);self.__SSG_MANIFEST_CB&&self.__SSG_MANIFEST_CB()
